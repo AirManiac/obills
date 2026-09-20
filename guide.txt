@@ -1,3 +1,6 @@
 @AyoNaim ➜ /workspaces/obillsdata/android (main) $ keytool -list -v -keystore ~/.android/debug.keystore -alias androiddebugkey -storepass android -keypass android | grep -i SHA256
          SHA256: 98:AC:C5:54:20:86:25:E4:18:9F:46:B1:49:CB:D3:2C:8A:D9:82:0D:CD:12:45:6E:B2:93:09:AA:B0:76:0D:A9
 Signature algorithm name: SHA256withRSA
+
+
+two things now, every card image is being treated as a different component even though it should just be three single images in a div, so we have "promotonal offers", "promotional offers" twice if we intend to render it twice and they do take up too much space too and since the images doenst seem to conform well to the cards, lets make the cards conform well to the images, lets make the cards smaller and lets make the images fit the cards better, return the full, corrected and complete code:
