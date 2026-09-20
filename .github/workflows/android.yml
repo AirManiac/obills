@@ -1,43 +1,51 @@
-name: Build Unsigned Android APK
+name: Android Release APK Build
 
 on:
   push:
     branches: [main]
+  workflow_dispatch:
 
 jobs:
-  build-apk:
+  android-release:
     runs-on: ubuntu-latest
+    timeout-minutes: 60
 
     steps:
-      - name: Checkout Repository
+      - name: Checkout Source
         uses: actions/checkout@v4
 
-      - name: Set up Node.js (v22 LTS)
-        uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-          cache: 'npm'
-
-      - name: Set up JDK 21 (Temurin)
+      - name: Setup Java
         uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
-          java-version: '21'
+          distribution: "zulu"
+          java-version: "21"
+          cache: "gradle"
 
-      - name: Install Dependencies & Build Next.js Web App
-        run: |
-          npm ci
-          npm run build # Adjust this if your build script is named differently
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
 
-      - name: Sync Capacitor Android
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build web app (Static Export)
+        run: npm run build
+
+      - name: Sync Capacitor
         run: npx cap sync android
 
       - name: Build Unsigned Release APK
-        working-directory: ./android
-        run: ./gradlew assembleRelease
+        run: |
+          cd android
+          chmod +x gradlew
+          # assembleRelease creates an APK with debugging disabled
+          bash ./gradlew assembleRelease
 
-      - name: Upload Unsigned APK Artifact
+      - name: Upload Unsigned APK
         uses: actions/upload-artifact@v4
         with:
-          name: app-release-unsigned-apk
-          path: android/app/build/outputs/apk/release/app-release-unsigned.apk
+          name: pancity-unsigned-release-apk
+          # Path points to the release APK folder
+          path: android/app/build/outputs/apk/release/*.apk
