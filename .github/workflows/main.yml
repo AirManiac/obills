@@ -1,0 +1,52 @@
+name: Build Signed Android AAB
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-aab:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js (v22 LTS)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Set up JDK 21 (Temurin)
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Install Dependencies & Build Next.js Web App
+        run: |
+          npm ci
+          npm run build # Adjust this if your build script is named differently
+
+      - name: Sync Capacitor Android
+        run: npx cap sync android
+
+      - name: Decode Keystore
+        run: |
+          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > android/app/release-key.jks
+
+      - name: Build Signed Release App Bundle (AAB)
+        working-directory: ./android
+        run: |
+          ./gradlew bundleRelease \
+            -Pandroid.injected.signing.store.file="$GITHUB_WORKSPACE/android/app/release-key.jks" \
+            -Pandroid.injected.signing.store.password="${{ secrets.KEYSTORE_PASSWORD }}" \
+            -Pandroid.injected.signing.key.alias="${{ secrets.KEY_ALIAS }}" \
+            -Pandroid.injected.signing.key.password="${{ secrets.KEY_PASSWORD }}"
+
+      - name: Upload Signed AAB Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-release-aab
+          path: android/app/build/outputs/bundle/release/app-release.aab
