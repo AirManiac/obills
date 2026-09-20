@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-aab:
+  build-apk:
     runs-on: ubuntu-latest
     timeout-minutes: 60
 
@@ -36,21 +36,12 @@ jobs:
       - name: Sync Capacitor
         run: npx cap sync android
 
-      - name: Decode Keystore
-        run: |
-          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > android/app/release-key.jks
-
-      - name: Build Signed Release App Bundle (AAB)
+      - name: Build Unsigned Release APK
         working-directory: ./android
-        run: |
-          ./gradlew bundleRelease \
-            -Pandroid.injected.signing.store.file="$GITHUB_WORKSPACE/android/app/release-key.jks" \
-            -Pandroid.injected.signing.store.password="${{ secrets.KEYSTORE_PASSWORD }}" \
-            -Pandroid.injected.signing.key.alias="${{ secrets.KEY_ALIAS }}" \
-            -Pandroid.injected.signing.key.password="${{ secrets.KEY_PASSWORD }}"
+        run: ./gradlew assembleRelease
 
-      - name: Upload Signed AAB Artifact
+      - name: Upload Unsigned APK Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: app-release-aab
-          path: android/app/build/outputs/bundle/release/app-release.aab
+          name: app-release-unsigned-apk
+          path: android/app/build/outputs/apk/release/app-release-unsigned.apk
