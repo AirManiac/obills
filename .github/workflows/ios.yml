@@ -32,6 +32,11 @@ jobs:
           fi
           npx cap sync ios
 
+      - name: Install CocoaPods & Generate Workspace
+        run: |
+          cd ios/App
+          pod install --repo-update
+
       - name: Build Unsigned Xcode Archive
         run: |
           xcodebuild archive \
