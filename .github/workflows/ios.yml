@@ -31,15 +31,10 @@ jobs:
           npx cap add ios
           npx cap sync ios
 
-      - name: Install CocoaPods & Generate Workspace
-        run: |
-          cd ios/App
-          pod install --repo-update
-
       - name: Build Unsigned Xcode Archive
         run: |
           xcodebuild archive \
-            -workspace ios/App/App.xcworkspace \
+            -project ios/App/App.xcodeproj \
             -scheme App \
             -sdk iphoneos \
             -archivePath build/App.xcarchive \
