@@ -125,6 +125,17 @@
   }
 }
 
+body {
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+* {
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: pan-y; /* disables pinch-to-zoom */
+}
+
 /* html,
 body {
   overflow: hidden;
