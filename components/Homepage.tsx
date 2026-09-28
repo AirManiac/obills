@@ -552,7 +552,7 @@ export default function FintechDashboard() {
 
       {/* account number snap cards  */}
 
-      <SnapCards imagePaths={["/obills_promo_1.jpg", "/obills_promo_2.jpg", "/obills_promo_3.jpg"]} />
+      <SnapCards imagePaths={["/obills_promo_1.jpg", "/soccer_modified.jpg", "/obills_promo_3.jpg"]} />
 
       <div
         className={`rounded-[2.5rem] p-8 grid grid-cols-3 gap-y-10 gap-x-4 relative border transition-all duration-500 shadow-xl ${
