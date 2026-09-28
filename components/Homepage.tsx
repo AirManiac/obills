@@ -289,7 +289,7 @@ export default function FintechDashboard() {
 
   return (
     <div
-      className={`min-h-screen w-[100vw] transition-colors duration-500 pb-32 pt-safe px-6 ${
+      className={`min-h-screen w-full max-w-full overflow-x-hidden transition-colors duration-500 pb-32 pt-safe px-6 ${
         isDarkMode ? "bg-[#0f0a14] text-white" : "bg-slate-50 text-slate-900"
       }`}
     >
