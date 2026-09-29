@@ -4,7 +4,6 @@ import { Haptics, ImpactStyle } from "@capacitor/haptics";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import SnapCards from "./SnapCards";
 import PullToRefresh from "pulltorefreshjs";
 import {
   MoreHorizontal,
@@ -20,6 +19,8 @@ import {
   ArrowRightLeft,
   CheckCircle2,
   Loader2,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import Link from "next/link";
 import AccountUpgradeModal from "./UpgradeAccount";
@@ -69,6 +70,32 @@ export default function FintechDashboard() {
   const [isDarkMode, setIsDarkMode] = useState(true);
 
   const adminPhone = "2347033578281";
+
+  // Carousel State & Controls
+  const promoImages = [
+    "/obills_promo_1.jpg",
+    "/obills_promo_2.jpg",
+    "/obills_promo_3.jpg",
+  ];
+  const [currentPromoIndex, setCurrentPromoIndex] = useState(0);
+
+  const handlePrevPromo = async () => {
+    if (currentPromoIndex > 0) {
+      setCurrentPromoIndex((prev) => prev - 1);
+      try {
+        await Haptics.impact({ style: ImpactStyle.Light });
+      } catch (e) {}
+    }
+  };
+
+  const handleNextPromo = async () => {
+    if (currentPromoIndex < promoImages.length - 1) {
+      setCurrentPromoIndex((prev) => prev + 1);
+      try {
+        await Haptics.impact({ style: ImpactStyle.Light });
+      } catch (e) {}
+    }
+  };
 
   // Initialize with empty strings to prevent hydration mismatch
   const [userData, setUserData] = useState({
@@ -144,7 +171,7 @@ export default function FintechDashboard() {
       if (!phone) throw new Error("No phone found for refresh");
 
       const response = await fetch(
-        "https://obills.com.ng/app/api/user/app-refresh/index.php",
+        "https://fastwave.com.ng/app/api/user/app-refresh/index.php",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -219,7 +246,7 @@ export default function FintechDashboard() {
       if (!phone) return;
 
       const response = await fetch(
-        "https://obills.com.ng/app/api/user/cashback-transfer/index.php",
+        "https://fastwave.com.ng/app/api/user/cashback-transfer/index.php",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -240,7 +267,7 @@ export default function FintechDashboard() {
     }
   };
 
-  // --- ADDED: AUTO-REFRESH ON ARRIVAL ---
+  // --- AUTO-REFRESH ON ARRIVAL ---
   useEffect(() => {
     handleRefresh();
   }, [handleRefresh]);
@@ -550,36 +577,69 @@ export default function FintechDashboard() {
         </CardContent>
       </Card>
 
-      <SnapCards />
       {/* Promotions and Offers Carousel */}
       <div className="mb-8">
-        <h3
-          className={`text-[11px] uppercase tracking-widest font-bold mb-4 px-2 ${
-            isDarkMode ? "text-gray-500" : "text-slate-400"
-          }`}
-        >
-          Promotions and Offers
-        </h3>
-        <div 
-          className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-6 px-6 touch-pan-x [-webkit-overflow-scrolling:touch] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
-        >
-          {["/obills_promo_1.jpg", "/soccer_modified.jpg", "/obills_promo_3.jpg"].map(
-            (image, index) => (
+        <div className="flex items-center justify-between mb-4 px-2">
+          <h3
+            className={`text-[11px] uppercase tracking-widest font-bold ${
+              isDarkMode ? "text-gray-500" : "text-slate-400"
+            }`}
+          >
+            Promotions and Offers
+          </h3>
+          <div className="flex items-center gap-2">
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={handlePrevPromo}
+              disabled={currentPromoIndex === 0}
+              className={`h-8 w-8 rounded-full border transition-opacity ${
+                isDarkMode
+                  ? "border-white/10 bg-white/5 text-white disabled:opacity-30"
+                  : "border-slate-200 bg-white text-slate-700 disabled:opacity-30"
+              }`}
+            >
+              <ChevronLeft className="h-4 w-4" />
+            </Button>
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={handleNextPromo}
+              disabled={currentPromoIndex === promoImages.length - 1}
+              className={`h-8 w-8 rounded-full border transition-opacity ${
+                isDarkMode
+                  ? "border-white/10 bg-white/5 text-white disabled:opacity-30"
+                  : "border-slate-200 bg-white text-slate-700 disabled:opacity-30"
+              }`}
+            >
+              <ChevronRight className="h-4 w-4" />
+            </Button>
+          </div>
+        </div>
+
+        <div className="relative rounded-3xl overflow-hidden shadow-lg border border-white/5 bg-slate-100 dark:bg-[#1c1425]">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={promoImages[currentPromoIndex]}
+            alt={`Promotion and Offer ${currentPromoIndex + 1}`}
+            className="w-full h-40 object-cover transition-all duration-300"
+          />
+          {/* Indicator Dots */}
+          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-full">
+            {promoImages.map((_, idx) => (
               <div
-                key={index}
-                className="flex-none w-[85%] snap-center rounded-3xl overflow-hidden shadow-lg border border-white/5 bg-slate-100 dark:bg-[#1c1425] select-none"
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={image}
-                  alt={`Promotion and Offer ${index + 1}`}
-                  className="w-full h-40 object-contain pointer-events-none select-none [-webkit-user-drag:none]"
-                />
-              </div>
-            )
-          )}
+                key={idx}
+                className={`h-1.5 rounded-full transition-all duration-300 ${
+                  idx === currentPromoIndex
+                    ? "w-4 bg-emerald-500"
+                    : "w-1.5 bg-white/50"
+                }`}
+              />
+            ))}
+          </div>
         </div>
       </div>
+
       <div
         className={`rounded-[2.5rem] p-8 grid grid-cols-3 gap-y-10 gap-x-4 relative border transition-all duration-500 shadow-xl ${
           isDarkMode
@@ -653,7 +713,7 @@ export default function FintechDashboard() {
             } catch (e) {}
             window.open(
               `https://wa.me/${adminPhone}?text=${encodeURIComponent(
-                "Hello, I am using the Obills App. I would like to suggest a new service: "
+                "Hello, I am using the Fastwave App. I would like to suggest a new service: "
               )}`,
               "_blank"
             );
@@ -686,7 +746,7 @@ export default function FintechDashboard() {
             const userName = userData.displayName || "User";
             window.open(
               `https://wa.me/${adminPhone}?text=${encodeURIComponent(
-                `Hello Admin, I am ${userName}. I need assistance with the Obills App.`
+                `Hello Admin, I am ${userName}. I need assistance with the Fastwave App.`
               )}`,
               "_blank"
             );
