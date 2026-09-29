@@ -22,7 +22,6 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import AccountUpgradeModal from "./UpgradeAccount";
-import SnapCards from "./SnapCards";
 
 // --- SERVICE ITEM COMPONENT ---
 const ServiceItem = ({
@@ -289,7 +288,7 @@ export default function FintechDashboard() {
 
   return (
     <div
-      className={`min-h-screen w-[100vw] transition-colors duration-500 pb-32 pt-safe px-6 ${
+      className={`min-h-screen w-full max-w-full overflow-x-hidden transition-colors duration-500 pb-32 pt-safe px-6 ${
         isDarkMode ? "bg-[#0f0a14] text-white" : "bg-slate-50 text-slate-900"
       }`}
     >
@@ -550,9 +549,33 @@ export default function FintechDashboard() {
         </CardContent>
       </Card>
 
-      {/* account number snap cards  */}
-
-      <SnapCards imagePaths={["/obills_promo_1.jpg", "/soccer_modified.jpg", "/obills_promo_3.jpg"]} />
+      {/* Promotions and Offers Carousel */}
+      <div className="mb-8">
+        <h3
+          className={`text-[11px] uppercase tracking-widest font-bold mb-4 px-2 ${
+            isDarkMode ? "text-gray-500" : "text-slate-400"
+          }`}
+        >
+          Promotions and Offers
+        </h3>
+        <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-6 px-6 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          {["/obills_promo_1.jpg", "/soccer_modified.jpg", "/obills_promo_3.jpg"].map(
+            (image, index) => (
+              <div
+                key={index}
+                className="flex-none w-[85%] snap-center rounded-3xl overflow-hidden shadow-lg border border-white/5 bg-slate-100 dark:bg-[#1c1425]"
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={image}
+                  alt={`Promotion and Offer ${index + 1}`}
+                  className="w-full h-40 object-contain"
+                />
+              </div>
+            )
+          )}
+        </div>
+      </div>
 
       <div
         className={`rounded-[2.5rem] p-8 grid grid-cols-3 gap-y-10 gap-x-4 relative border transition-all duration-500 shadow-xl ${
