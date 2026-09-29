@@ -125,13 +125,11 @@ export default function AccountUpgradeModal() {
 
   const perks: any = {
     vendor: [
-      "costs only a #1000 naira",
       "Access to Vendor pricing",
       "Instant cashback on all airtime",
       "Dedicated priority support",
     ],
     agent: [
-      "costs only a #1000 naira",
       "Lowest possible pricing (Agent rate)",
       "Maximum referral commission",
       "White-label branding options",

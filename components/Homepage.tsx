@@ -74,7 +74,7 @@ export default function FintechDashboard() {
   // Carousel State & Controls
   const promoImages = [
     "/obills_promo_1.jpg",
-    "/obills_promo_2.jpg",
+    "/soccer_modified.jpg",
     "/obills_promo_3.jpg",
   ];
   const [currentPromoIndex, setCurrentPromoIndex] = useState(0);
@@ -587,45 +587,49 @@ export default function FintechDashboard() {
           >
             Promotions and Offers
           </h3>
-          <div className="flex items-center gap-2">
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={handlePrevPromo}
-              disabled={currentPromoIndex === 0}
-              className={`h-8 w-8 rounded-full border transition-opacity ${
-                isDarkMode
-                  ? "border-white/10 bg-white/5 text-white disabled:opacity-30"
-                  : "border-slate-200 bg-white text-slate-700 disabled:opacity-30"
-              }`}
-            >
-              <ChevronLeft className="h-4 w-4" />
-            </Button>
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={handleNextPromo}
-              disabled={currentPromoIndex === promoImages.length - 1}
-              className={`h-8 w-8 rounded-full border transition-opacity ${
-                isDarkMode
-                  ? "border-white/10 bg-white/5 text-white disabled:opacity-30"
-                  : "border-slate-200 bg-white text-slate-700 disabled:opacity-30"
-              }`}
-            >
-              <ChevronRight className="h-4 w-4" />
-            </Button>
-          </div>
         </div>
 
         <div className="relative rounded-3xl overflow-hidden shadow-lg border border-white/5 bg-slate-100 dark:bg-[#1c1425]">
+          
+          {/* Left Arrow inside image container */}
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={handlePrevPromo}
+            disabled={currentPromoIndex === 0}
+            className={`absolute left-3 top-1/2 -translate-y-1/2 z-10 h-10 w-10 rounded-full border-none shadow-xl backdrop-blur-md transition-all ${
+              isDarkMode
+                ? "bg-black/60 text-white hover:bg-black/80 disabled:opacity-30"
+                : "bg-white/80 text-slate-800 hover:bg-white disabled:opacity-30"
+            }`}
+          >
+            <ChevronLeft className="h-6 w-6" />
+          </Button>
+
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={promoImages[currentPromoIndex]}
             alt={`Promotion and Offer ${currentPromoIndex + 1}`}
-            className="w-full h-40 object-cover transition-all duration-300"
+            className="w-full h-40 object-contain transition-all duration-300"
           />
+
+          {/* Right Arrow inside image container */}
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={handleNextPromo}
+            disabled={currentPromoIndex === promoImages.length - 1}
+            className={`absolute right-3 top-1/2 -translate-y-1/2 z-10 h-10 w-10 rounded-full border-none shadow-xl backdrop-blur-md transition-all ${
+              isDarkMode
+                ? "bg-black/60 text-white hover:bg-black/80 disabled:opacity-30"
+                : "bg-white/80 text-slate-800 hover:bg-white disabled:opacity-30"
+            }`}
+          >
+            <ChevronRight className="h-6 w-6" />
+          </Button>
+
           {/* Indicator Dots */}
-          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-full">
+          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-full z-10">
             {promoImages.map((_, idx) => (
               <div
                 key={idx}
