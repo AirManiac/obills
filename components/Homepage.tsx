@@ -550,7 +550,7 @@ export default function FintechDashboard() {
         </CardContent>
       </Card>
 
-      <SnapCards images={["obills_promo_1.jpg", "obills_promo_2.jpg", "obills_promo_1.jpg"]} />
+      <SnapCards />
       {/* Promotions and Offers Carousel */}
       <div className="mb-8">
         <h3
