@@ -4,6 +4,7 @@ import { Haptics, ImpactStyle } from "@capacitor/haptics";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import SnapCards from "./SnapCards";
 import PullToRefresh from "pulltorefreshjs";
 import {
   MoreHorizontal,
@@ -143,7 +144,7 @@ export default function FintechDashboard() {
       if (!phone) throw new Error("No phone found for refresh");
 
       const response = await fetch(
-        "https://fastwave.com.ng/app/api/user/app-refresh/index.php",
+        "https://obills.com.ng/app/api/user/app-refresh/index.php",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -218,7 +219,7 @@ export default function FintechDashboard() {
       if (!phone) return;
 
       const response = await fetch(
-        "https://fastwave.com.ng/app/api/user/cashback-transfer/index.php",
+        "https://obills.com.ng/app/api/user/cashback-transfer/index.php",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -549,6 +550,7 @@ export default function FintechDashboard() {
         </CardContent>
       </Card>
 
+      <SnapCards images={["obills_promo_1.jpg", "obills_promo_2.jpg", "obills_promo_1.jpg"]} />
       {/* Promotions and Offers Carousel */}
       <div className="mb-8">
         <h3
@@ -558,25 +560,26 @@ export default function FintechDashboard() {
         >
           Promotions and Offers
         </h3>
-        <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-6 px-6 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+        <div 
+          className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-6 px-6 touch-pan-x [-webkit-overflow-scrolling:touch] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+        >
           {["/obills_promo_1.jpg", "/soccer_modified.jpg", "/obills_promo_3.jpg"].map(
             (image, index) => (
               <div
                 key={index}
-                className="flex-none w-[85%] snap-center rounded-3xl overflow-hidden shadow-lg border border-white/5 bg-slate-100 dark:bg-[#1c1425]"
+                className="flex-none w-[85%] snap-center rounded-3xl overflow-hidden shadow-lg border border-white/5 bg-slate-100 dark:bg-[#1c1425] select-none"
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={image}
                   alt={`Promotion and Offer ${index + 1}`}
-                  className="w-full h-40 object-contain"
+                  className="w-full h-40 object-contain pointer-events-none select-none [-webkit-user-drag:none]"
                 />
               </div>
             )
           )}
         </div>
       </div>
-
       <div
         className={`rounded-[2.5rem] p-8 grid grid-cols-3 gap-y-10 gap-x-4 relative border transition-all duration-500 shadow-xl ${
           isDarkMode
@@ -650,7 +653,7 @@ export default function FintechDashboard() {
             } catch (e) {}
             window.open(
               `https://wa.me/${adminPhone}?text=${encodeURIComponent(
-                "Hello, I am using the Fastwave App. I would like to suggest a new service: "
+                "Hello, I am using the Obills App. I would like to suggest a new service: "
               )}`,
               "_blank"
             );
@@ -683,7 +686,7 @@ export default function FintechDashboard() {
             const userName = userData.displayName || "User";
             window.open(
               `https://wa.me/${adminPhone}?text=${encodeURIComponent(
-                `Hello Admin, I am ${userName}. I need assistance with the Fastwave App.`
+                `Hello Admin, I am ${userName}. I need assistance with the Obills App.`
               )}`,
               "_blank"
             );
