@@ -19,7 +19,7 @@ interface VirtualAccount {
   accountName: string;
 }
 
-const API_BASE_URL = "https://fastwave.com.ng/app/api/fund-wallet/index.php";
+const API_BASE_URL = "https://obills.com.ng/app/api/fund-wallet/index.php";
 
 export default function SnapCards() {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -64,7 +64,7 @@ export default function SnapCards() {
 
     try {
       const response = await fetch(
-        `https://fastwave.com.ng/app/debug.php?token=${encodeURIComponent(
+        `https://obills.com.ng/app/debug.php?token=${encodeURIComponent(
           token
         )}`,
         { method: "POST" }

@@ -171,7 +171,7 @@ export default function FintechDashboard() {
       if (!phone) throw new Error("No phone found for refresh");
 
       const response = await fetch(
-        "https://fastwave.com.ng/app/api/user/app-refresh/index.php",
+        "https://obills.com.ng/app/api/user/app-refresh/index.php",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -246,7 +246,7 @@ export default function FintechDashboard() {
       if (!phone) return;
 
       const response = await fetch(
-        "https://fastwave.com.ng/app/api/user/cashback-transfer/index.php",
+        "https://obills.com.ng/app/api/user/cashback-transfer/index.php",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -717,7 +717,7 @@ export default function FintechDashboard() {
             } catch (e) {}
             window.open(
               `https://wa.me/${adminPhone}?text=${encodeURIComponent(
-                "Hello, I am using the Fastwave App. I would like to suggest a new service: "
+                "Hello, I am using the Obills App. I would like to suggest a new service: "
               )}`,
               "_blank"
             );
@@ -750,7 +750,7 @@ export default function FintechDashboard() {
             const userName = userData.displayName || "User";
             window.open(
               `https://wa.me/${adminPhone}?text=${encodeURIComponent(
-                `Hello Admin, I am ${userName}. I need assistance with the Fastwave App.`
+                `Hello Admin, I am ${userName}. I need assistance with the Obills App.`
               )}`,
               "_blank"
             );
