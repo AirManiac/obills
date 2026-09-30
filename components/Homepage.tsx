@@ -69,7 +69,7 @@ export default function FintechDashboard() {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [isDarkMode, setIsDarkMode] = useState(true);
 
-  const adminPhone = "2347033578281";
+  const adminPhone = "2347081671426";
 
   // Carousel State & Controls
   const promoImages = [
