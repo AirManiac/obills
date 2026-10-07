@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import PasskeyBridge from "@/components/PasskeyBridge";
 import AppBackButtonHandler from "@/components/AppBack";
+import OneSignalInit from '@/components/OneSignalInit';
 import { Toaster } from "sonner";
 
 const geistSans = Geist({
@@ -32,6 +33,7 @@ export default function RootLayout({
       >
         <AppBackButtonHandler />
         <PasskeyBridge>
+          <OneSignalInit />
           {children}
         </PasskeyBridge>
         <Toaster position="top-center" />

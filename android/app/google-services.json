@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "940010379147",
+    "project_id": "obills-5dedf",
+    "storage_bucket": "obills-5dedf.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:940010379147:android:ea5dd334eba36c8109818e",
+        "android_client_info": {
+          "package_name": "com.fix.obills"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvS3U5oa1Ruht-61fI2weJ5a1JTvGp18s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -18,7 +18,8 @@ let package = Package(
         .package(name: "CapacitorShare", path: "../../../node_modules/@capacitor/share"),
         .package(name: "CapacitorToast", path: "../../../node_modules/@capacitor/toast"),
         .package(name: "CapgoCapacitorNativeBiometric", path: "../../../node_modules/@capgo/capacitor-native-biometric"),
-        .package(name: "CapgoCapacitorPasskey", path: "../../../node_modules/@capgo/capacitor-passkey")
+        .package(name: "CapgoCapacitorPasskey", path: "../../../node_modules/@capgo/capacitor-passkey"),
+        .package(name: "OnesignalCapacitorPlugin", path: "../../../node_modules/@onesignal/capacitor-plugin")
     ],
     targets: [
         .target(
@@ -32,7 +33,8 @@ let package = Package(
                 .product(name: "CapacitorShare", package: "CapacitorShare"),
                 .product(name: "CapacitorToast", package: "CapacitorToast"),
                 .product(name: "CapgoCapacitorNativeBiometric", package: "CapgoCapacitorNativeBiometric"),
-                .product(name: "CapgoCapacitorPasskey", package: "CapgoCapacitorPasskey")
+                .product(name: "CapgoCapacitorPasskey", package: "CapgoCapacitorPasskey"),
+                .product(name: "OnesignalCapacitorPlugin", package: "OnesignalCapacitorPlugin")
             ]
         )
     ]
